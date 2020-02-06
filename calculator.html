@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calc</title>
+    <link rel="shortcut icon" href="img/Calculater.png" />
+    
+    <link rel="stylesheet" href="css/calculator.css">
+   
+</head>
+
+<body>
+    <div class="my-header">
+ <div class = 'frame'> 
+    <div class = 'header'>
+        little calculator
+    </div>
+    <div class = 'panels'>
+        <div class= "panelRes" "panel"></div>
+        <div class="panelOp" "panel"></div>
+        <div class="panel"></div>
+    </div>
+        
+    <div class = 'board'> 
+        <div> 
+        <button class="button" onclick="diverseX()">1/x</button>
+        <button class="button" onclick="sqr(2)">X²</button>
+        <button class="button" onclick="sqr(0.5)">√</button>
+        <button class="button" onclick="persent()">%</button>
+        </div>
+
+        <div> 
+        <button class="button" onclick="backSpace()"><=</button>
+        <button class="button" onclick="clearLog('ce')">ce</button>
+        <button class="button" onclick="clearLog('c')">c</button>
+        <button class="button" onclick="setOperator('/')">/</button>
+        </div>
+
+        <div> 
+        <button class="button-dig" "button" onclick="addDigit(1)">1</button>
+        <button class="button-dig" "button" onclick="addDigit(2)">2</button>
+        <button class="button-dig" "button" onclick="addDigit(3)">3</button>
+        <button class="button" onclick="setOperator('+')">+</button>
+        </div>
+        <div> 
+        <button class="button-dig" "button"  onclick="addDigit(4)">4</button>
+        <button class="button-dig" "button"  onclick="addDigit(5)">5</button>
+        <button class="button-dig" "button"  onclick="addDigit(6)">6</button>
+        <button class="button" onclick="setOperator('-')">-</button>
+        </div>
+        <div> 
+        <button class="button-dig" "button" onclick="addDigit(7)">7</button>
+        <button class="button-dig" "button" onclick="addDigit(8)">8</button>
+        <button class="button-dig" "button"  onclick="addDigit(9)">9</button>
+        <button class="button" onclick="setOperator('X')">X</button>
+        </div>
+        <div> 
+        
+        <button class="button" onclick="turnMinus()">∓</button>
+        <button class="button-dig" "button"  onclick="addDigit(0)">0</button>
+        <button class="button" onclick="addDigit('.')">.</button>
+        <button class="button" onclick="calcResult()">=</button>
+        </div>
+      </div>
+    </div>
+
+<!--
+        <button class="button" onclick="mainFun(turnMinus)">∓</button>
+        <button class="button" onclick="sqr(3)">X³</button>
+-->
+        <hr />
+    </div>
+<a class="active" href="index.html">Home page</a><br>
+    <script src="js/calculator.js"></script>
+</body>
+
+</html>

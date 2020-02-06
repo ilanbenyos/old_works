@@ -1,0 +1,118 @@
+body {
+  margin:0;
+  background-image: url("../img/background.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+/* ===================top nav====================================*/
+.topnav {
+/*  overflow: hidden;*/
+ 
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+/* ===================side nav====================================*/
+.sidenav{
+    position: absolute;
+    top: 100px;
+}
+
+
+#mySidenav a {
+    position: absolute;
+    left: -30px;
+    transition: 0.3s;
+    width: 120px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px;
+}
+#mySidenav a:hover {
+    left: 30px;
+}
+#balloons {
+    top: 60px;
+    background-color: #4CAF50;
+}
+
+#calculator {
+    top: 110px;
+    background-color: #2196F3;
+}
+
+#mines {
+    top: 170px;
+    background-color: #f44336;
+}
+
+#sokoban {
+    top: 220px;
+    background-color: yellow
+}
+#tetris {
+    top: 270px;
+    background-color: lightseagreen
+}
+#snake {
+    top: 320px;
+    background-color: seagreen
+}
+#sudoku {
+    top: 370px;
+    background-color: turquoise
+}
+#maze {
+    top: 420px;
+    background-color: burlywood
+}
+#booksRUs {
+    top: 470px;
+    background-color: purple;
+}
+#numbers {
+    top: 520px;
+    background-color: pink;
+}
+
+
+.padding20{
+    position: absolute;
+    left: 140px;
+    top : 80px;
+}
+
+/* ===================bottom nav====================================*/
+.center{
+    font-size: 40px;
+    position:absolute;
+    top: 30%;
+    left: 20%;
+    text-align: center;
+    border-radius: 20px;
+}  
+.center:hover {
+  background-color: #ddd;
+  color: red;
+  opacity: 0.5;
+}

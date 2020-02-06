@@ -1,0 +1,154 @@
+
+body{
+    background-color: black;
+}
+header{
+    text-align: center;
+    font-size: 2em;
+    color:green;
+}
+
+table{
+    border-collapse: collapse;
+    /*width:90%;*/
+
+    /*margin-bottom: 3em;*/
+    margin : auto;
+    background-color: lightpink;
+    transition: all .3s ease-in-out;
+}
+.black{
+    background-color: black;
+}
+
+hr {
+    border-style: solid;
+    border-width: 2px;   
+}
+
+.cellDiv{
+    background-color: lightcoral;
+    color : blue;
+    font-size: 10vh;
+    transition: all .3s ease-in-out;
+
+    border-radius: 20%;
+
+    transition: all .3s ease-in-out;
+    text-align: center;
+    /*width:100%;*/
+    /*height:100%;*/
+}
+
+.panel{
+    font-size: 2em;
+    display : flex;
+    justify-content: center;
+    /*height : 40px;*/
+    flex-direction: column;
+    margin :20px;
+    margin: auto;
+    align-items: center;
+
+}
+.btns-panel{
+    /*margin: 5px;*/
+    display: flex;
+    justify-content: space-between;
+
+    /*height : 2.5em;
+    padding : .3 em;*/
+}
+
+.btn{
+ background: #3498db;
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  border-radius: 20px;
+  box-shadow: 4px 4px 9px #666666;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 3px 10px;
+  text-decoration: none;
+  margin : 10px;
+}
+
+.btn:hover {
+  background: #6d20e0;
+  background-image: linear-gradient(to bottom, #6d20e0, #3498db);
+  text-decoration: none;
+}
+span{
+  background: lightcyan;
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  border-radius: 7px;
+  box-shadow: 4px 4px 9px #666666;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 3px 10px;
+  text-decoration: none;
+  margin:10px;
+
+}
+
+
+spantt{
+    margin :15px;
+    text-align: center;
+    background-color: gray;
+    border: 1px solid darkblue;
+    border-radius: 10px;
+
+    width: 5em;
+    padding : 4px;
+}
+.clicked{
+    background-color: lightseagreen;
+    
+    color :purple;
+}
+.wrong{
+    animation-name: clickWrong;
+    animation-duration: 0.3s;
+    animation-iteration-count: 3;
+}
+@keyframes clickWrong {
+    0%   {background-color:red;}
+    50%  {background-color:lightcoral; }
+    100% {background-color:red; }
+}
+.popup >div{
+    font-size: 2em;
+
+}
+.popup {
+    background-color: lightgreen;
+    color: red;
+    padding: 20px;
+    text-align:center;
+    visibility: hidden;
+    position:absolute;
+    top:20%;
+    height:30%;
+    left: 30%;
+    width :40%;
+    opacity: 0;
+    transition: opacity 0.7s;
+    font-size: 1.5em;
+    border-radius: 20%;
+
+}
+.hiden {
+    opacity : 0;
+    visibility: hidden;
+}
+.show{
+    opacity : 1;
+    visibility: visible;
+}
+.show30{
+    opacity : .5;
+    visibility: visible;
+}
+

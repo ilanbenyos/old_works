@@ -1,0 +1,56 @@
+body{
+    background-color: black;
+}
+
+
+table {
+    border: 2px solid black;
+    text-align: center;
+    background-color: lightgreen;
+    width :400 px;
+    height : 400 px;
+    margin: auto;
+}
+.botton-panel{
+    margin: auto;
+    width: 170px;
+    padding: 10px;
+}
+.botton{
+    margin: auto;
+}
+.cell{
+    border: 2px solid black;
+    width: 30px;
+    height:30px;
+    background-color: lightgoldenrodyellow;
+
+}
+
+.rrr{
+    background-color: purple;
+}
+.cell0After{
+    background-color: yellow;
+}
+.cell1{
+    color: green;
+}
+.cell2{
+    color: blue;
+}
+.cell3{
+    color: red;
+}
+.bomb{
+}
+.flag{
+    background-color: pink;
+    background-image: "img/flag.png";
+}
+.bombAfter{
+    background-color: red;
+}
+.hidden{
+    visibility: none;
+}

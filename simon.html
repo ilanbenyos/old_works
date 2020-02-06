@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/simon.css">
+    <title>Saimons Piano</title>
+</head>
+<body onload="init()">
+    <sideNav id="mySidenav" class="sidenav">
+        <a class="closebtn" onclick="giveMeMore()">&times;</a>
+        <button class="sideBtn" onclick="playSound(this,0)"></button>
+        <button class="sideBtn" onclick="playSound(this,1)"></button>
+        <button class="sideBtn" onclick="playSound(this,2)"></button>
+        <button class="sideBtn" onclick="playSound(this,3)"></button>
+        <button class="sideBtn" onclick="playSound(this,4)"></button>
+        <button class="sideBtn" onclick="playSound(this,5)"></button>
+    </sideNav>
+    
+
+    <section>
+        <h1>Saimons Piano</h1>
+        <closeMe class="closebtn" onclick="closeMe()">&times;</closeMe>
+        <div class="piano"></div>
+        <div class="msg"></div>
+        <button class="freeStyle" onclick="freeNotes(this)">free style</button>
+        <button class="freeStyle" onclick="giveMeMore(this)">give me more!</button>
+    </section>
+    <!--<script src="js/utils.js"></script>-->
+    <script src="js/simon.js"></script>
+    <!--<script src="js/prefs.js"></script>-->
+</body>
+</html>

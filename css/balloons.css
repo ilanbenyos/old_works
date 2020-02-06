@@ -1,0 +1,51 @@
+
+.button {
+    margin: 0 auto;
+}
+
+.sky{
+   position: relative;
+    top: 0px;
+    width: 100%;
+   height: 500px;
+   background-color: lightblue;
+   overflow: hidden;
+}
+.balloon span {
+    text-align: center;
+    position: relative;
+    top: 50%;
+}
+
+.balloon {
+    text-align: center;
+    position : absolute;
+    display: inline-block;
+	border-radius: 50%;
+
+}
+.boom{
+    background-color: lightgray;
+    opacity: 0;
+    transition: opacity 0.7s; 
+    z-index: -1;   
+}
+
+.balloon0 {
+}
+.balloon1 {
+}
+.balloon2 {
+}
+.balloon4 {
+	background: yellow;
+}
+
+.egg {
+   display:block;
+   width: 126px;
+   height: 180px;
+   background-color: red;
+   border-radius: 63px 63px 63px 63px / 108px 108px 72px 72px;
+   border-radius: 50%  50%  50%  50%  / 60%   60%   40%  40%;
+}

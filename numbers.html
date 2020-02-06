@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/numbers.css">
+</head>
+<body onload="initBoard()">
+    <header>touch the numbers</header>
+    <div class="main">  
+    
+        <table id = "board" class = "board">
+        </table>
+        <div class= "panel">   
+            <div >
+                <span id= "counterSpan" >score: 0 </span>
+                <span id= "timer">timer: 0 </span>
+            </div>
+
+            <div class= "btns-panel">
+                <button class="btn" onclick = "levele(-1)">level down</button>
+                <button class="btn" onclick = "restartGame()">restart</button>
+                <button class="btn" onclick = "startGame()">start</button>
+                <button class="btn" onclick = "levele(1)">level up</button>
+            </div>
+        </div>
+            <div id= "popup" class="popup hiden" onclick = "restartGame()">
+                <div id = 'popup1' >click me to restart</div>
+            </div>
+    </div>
+
+<script src="js/numbers.js"></script> 
+</body>
+</html>

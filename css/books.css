@@ -1,0 +1,275 @@
+
+        body {
+            font: 24px Helvetica;
+            background: #999999;
+        }
+        header{
+            text-align: center;
+        }
+
+    /*===================================================*/
+.sidenav {
+    /*height: 50%;  100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    
+    background-color:lightgoldenrodyellow; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-radius: 15px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+
+
+
+    /*=======================================================*/
+        main {
+            /*min-height: 800px;*/
+            margin: 0px;
+            padding: 0px;
+            display: flex;
+            flex-flow: row;
+        }
+
+        main > article {
+            margin: 4px;
+            padding: 5px;
+            border: 1px solid #cccc33;
+            border-radius: 7px;
+            background: #dddd88;
+            flex: 3 1 60%;
+            order: 2;
+        }
+
+
+        header, footer {
+            display: block;
+            margin: 4px;
+            padding: 5px;
+            min-height: 100px;
+            border: 1px solid #eebb55;
+            border-radius: 7px;
+            background: #ffeebb;
+        }
+
+/*=====================================================*/
+/* The side navigation menu */
+.sidenav {
+    /*height: 50%;  100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    
+    background-color:lightgoldenrodyellow; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-radius: 15px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+.sidenav form{
+    width:80%;
+    margin: auto;
+    
+}
+
+/*=====================================================*/
+board{
+    width : 98%;
+    display: flex;
+    flex-direction: column;
+
+}
+.bookLine img{
+    /*height: 1.5em;;*/
+    /*margin-left: 3px;*/
+    margin: 3px;
+    width: 90%;
+    height: 90%;
+}
+
+.bookKey{
+    width: 2em;
+    border-right: solid 1px;
+    text-align: center;
+    font-size: 1em;
+    }
+.bookKeys{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #cfd2d6;
+}
+.bookKeys .title{
+    width: 8em;
+}
+.bookKeys .price{
+    width: 4em;
+}
+.bookLine{
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: lightgray;
+    margin-top: 5px;
+    /*max-width: 600px;*/
+    /*font-size: 1em;*/
+    /*border: 1px solid red;*/
+}
+.bookLine :hover{
+    background-color: #dcdee2;
+}
+.heads {
+     font-weight: bold;
+    background-color: white;
+}
+.heads :hover{
+    background-color: lightgray;
+}
+
+.btnsDiv{
+    margin-left: 5px;
+    /*border: 1px solid black;*/
+    padding:0 2px;
+}
+.btnsDiv .btn  {
+    margin-left: 5px;
+    /*height:2em;*/
+}
+.read{
+    background-color: lightseagreen;
+}
+.read:hover{
+    background-color: #6699ff;
+}
+.edit{
+    background-color: #ffff00;
+}
+.edit:hover{
+    background-color: #cccc00;
+}
+.del{
+    background-color: #c4090c;
+}
+.del:hover{
+    background-color: #ff3300;
+}
+.add{
+    background-color: green;
+    margin:5px;
+}
+.add:hover{
+    background-color: #00cc00;
+    margin:5px;
+}
+.close1{
+    background-color: black;
+    color : white;
+}
+.formImg {
+    height : 150px;
+}
+.hidden1{
+    visibility: hidden;
+}
+.formConst {
+    max-width: 100%;
+    margin-bottom: 5px;    font-weight: 700
+}
+/*=====================================================*/
+@media screen and (max-width: 670px) {
+        .bookLine{
+            display: flex;
+            flex-direction: column;
+        }
+    .bookKeys{
+        /*align-content: space-between*/
+    }
+    .formImg {
+         height : 100px;
+    }
+    .bookKeys .title{
+        width: 5em;
+    }
+
+}
+@media screen and (max-width: 450px) {
+    .bookKey{
+        font-size: .7em;
+    }
+    .btnsDiv  {
+        /*height : 1.5em;*/
+    }
+
+    .bookKeys{
+        /*align-content: space-between*/
+    }
+    .formImg {
+         height :70px;
+    }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/books.css">
+    
+</head>
+<body>
+<header>ilan's book store</header>
+<main>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">close&times;</a>
+        <div id = "form1">
+            <div  id="formAddImg" class = "formConst " >
+                <img class = "formImg" id = "formImg"  src="img/book.png" >
+            </div>           
+                <div  id="formAddId" class = "formConst"> id
+                    <label>id:</label>
+                </div>
+            <div class="form-group">
+                <label for="formAddTitle">title</label>
+                <input type="text" class="form-control" id="formAddTitle" placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="formAddPrice">price</label>
+                <input type="number" class="form-control" id="formAddPrice" placeholder="price">
+            </div>
+            <div class="form-group">
+                <label for="formAddRate">rate</label>
+                <input type="number" class="form-control" id="formAddRate" placeholder="rate">
+            </div>
+            <div id= "formInputImg" class="form-group">
+                <label for="formAddImgFile">photo</label>
+                <input type="file" id="formAddImgFile">
+                <p class="help-block"></p>
+            </div>
+            <button class="btn add " onclick="addNewBook()">ok</button>
+            <button class="btn del" onclick="delBook()">del</button>
+            <button class="btn edit" onclick="editBook()">edit</button>
+            <button class="btn close1" onclick="closeForm()">close</button>
+        </div>
+    
+    </div>
+
+        <!-- Use any element to open the sidenav -->
+
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+
+    
+    <article>my books:
+        
+        <board id = "mainBoard" class="mainBoard ">
+            <!--here come the books table-->
+        </board>
+        <botton </botton>
+        <button class="btn add" onclick="add()">add new book</button>
+    </article>
+    <!--<nav>nav</nav>-->
+    <!--<aside>aside</aside>-->
+</main>
+<footer>footer</footer>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/books.js"></script> 
+
+</body>
+</html>

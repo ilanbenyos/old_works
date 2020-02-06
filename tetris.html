@@ -1,0 +1,352 @@
+
+
+
+<DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+<style>
+table{
+    border-collapse: collapse;
+}
+.cell1 {background-color: yellow ; color : blue; width: 8% ; height: 5% }
+/*.cell2 {background-color: red }*/
+/*.cell3 {background-color: purple }*/
+.cell4 {background-color: pink }
+/*.cell6 {background-color: white; color : green; }*/
+/*.cell7 {background-color: orange; color : black; text-align: center;}*/
+.cellfreeze {background-color: lightslategray }
+.cell5 {background-color: black; color : yellow; }
+.rowBlink {background-color: darkred }
+.btn{margin:15px;}
+
+</style>
+</head>
+<body>
+    <button class = "btn" onclick="createBomb()">start game</button>
+    <button class = "btn" id="pause" onclick="pauseGame()">pauseGame</button>
+    <!--<a class="active" href="index.html">Home page</a><br>-->
+<script>
+var gamestarted =0; //האם המשחק כבר התחיל. למטרות אינטרוול בפעם הראשונה
+var tdId //td cell obj
+var iNow, jNow;  //the now row and cell position of tetris
+var iLength=20 , jLength= 12;
+var indexRow;
+var intervalstarted = 0; //האם האינטרוול התחיל- לוודא שלא יתחיל שנית
+var isBomb=0;
+var bombType; //type of bomb
+var bombMatrix= [[]];
+bombMatrix[0]= [[0,0,0,0],[1,1,1,0],[0,0,1,0],[0,0,0,0]];
+bombMatrix[1]= [[0,0,0,0],[0,1,1,0],[0,0,1,1],[0,0,0,0]];
+bombMatrix[2]= [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
+bombMatrix[3]= [[0,0,0,0],[1,1,1,0],[0,1,0,0],[0,0,0,0]];
+bombMatrix[4]= [[0,0,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]];
+currentBombMatrix= [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+
+var currentMatrix = [];//אוסף הנקודות הנוכחיות של הפצצה
+var shadowMatrix = [];//  לבדיקה אוסף הנקודות של הפצצה
+var canMove= 0;
+var mainInterval;
+var gameP= 0; //האם מותר לעצור את המשחק
+var mainArr= new Array(iLength);
+var clickCount =0; //סופר את מספר היפוכי הפצצות בלחיצה על מקש מעלה
+
+    document.write("<table id = 'table1' border='1' width='400' height='600'>");
+
+    for( i=0; i<=iLength-1; i++)
+        {
+            mainArr[i] = new Array(jLength);
+            document.write("<tr id = tr" + i+1 + ">");
+            for( j=0; j<=jLength-1; j++)
+                {
+                        txt1= "";
+                        if (i===0){
+                            txt1= j;
+                        }
+                        if (j===0){
+                            txt1=i;
+                        }
+                        txt = "<td id = 'td" + i + j + "' class= 'cell1' > </td>"
+                        document.write(txt);
+                        mainArr[i][j]=0;
+                }
+                    document.write("</tr>");
+        }
+    document.write("</table>");
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) { //left
+        case 37:
+                iTemp= iNow;
+                jTemp= jNow-1;
+                checkfreeze(iTemp,jTemp);
+                if (canMove === 0){
+                    jNow -=1;
+                    drawBomb();
+                }
+            break;
+        case 38://up
+           var tempArr=[];
+            tempArr[0]=[];
+            tempArr[1]=[];
+            tempArr[2]=[];
+            tempArr[3]=[];
+
+            qq= clickCount % 4;       
+            for( aa=0; aa<=3; aa++){
+            for( bb=0; bb<=3; bb++){  
+            
+            switch (qq){
+                case 0:
+                    tempArr[bb][aa]= currentBombMatrix[aa][bb];
+                    break;
+                case 1:
+                    tempArr[bb][aa]= currentBombMatrix[aa][3-bb];
+                    break;
+                case 2:
+                    tempArr[bb][aa]= currentBombMatrix[3-aa][3-bb];
+                    break;
+                case 3:
+                    tempArr[bb][aa]= currentBombMatrix[3-aa][bb];
+                    break;
+            }
+            checkfreeze(iNow,jNow,tempArr,"up");
+            }
+                    }
+            clickCount +=1;
+             [currentBombMatrix]=[tempArr];
+             [tempArr]=[];
+            drawBomb();
+            break;
+        case 39://right
+              iTemp= iNow;
+                jTemp= jNow+1;
+                checkfreeze(iTemp,jTemp);
+                if (canMove === 0){
+                    jNow +=1;
+                    drawBomb();
+                    
+                }
+            break;
+        case 40: //down
+            iTemp= iNow+1;
+                jTemp= jNow;
+                checkfreeze(iTemp,jTemp);
+                if (canMove === 1){
+                    drawBomb();
+                    freezeBomb();
+                }
+
+            iNow +=1;
+            drawBomb();
+            break;
+    }
+}
+
+function createBomb(){
+        
+    jNow = 6;
+    iNow= 0;  //first location of tetris
+    bombType = Math.floor((Math.random() * bombMatrix.length));
+            isBomb=1; //bomb created
+            currentBombMatrix= bombMatrix[bombType];
+            drawBomb();
+
+            if (gamestarted ===0){
+                bombsInterval();
+                gamestarted=1;
+            }
+}    
+
+function drawBomb(){
+         deleteLastBomb()
+      for( a=0; a<=3; a++){
+        for( b=0; b<=3; b++){  
+            if(currentBombMatrix[a][b]===1){
+                x=iNow + a;
+                y=jNow + b;
+                table1.rows[x].cells[y].classList.add('cell4');
+                currentMatrix.push([x,y]);
+            }
+
+        }
+    }       
+                
+}
+
+function deleteLastBomb(){  //מחק את הפצצה האחרונה לפני ציור החדשה
+    var elems = document.querySelectorAll(".cell4");
+        [].forEach.call(elems, function(el) {
+        el.classList.remove("cell4")});
+        currentMatrix = [];
+}
+
+function pauseGame(){
+        if (gameP===1){
+            document.getElementById("pause").innerHTML ="stop"; 
+            gameP=0;
+        }else{
+        if (gameP===0){
+            document.getElementById("pause").innerHTML ="continue"; 
+            gameP=1;
+        }
+    }
+}
+function continuegame(){
+        gameP=1;
+        pauseGame();
+}
+
+function bombsInterval(){
+       if (gamestarted ===0){     
+            mainInterval = setInterval(function(){ 
+       if (gameP===0){     
+            iTemp= iNow+1;
+            jTemp= jNow;
+            checkfreeze(iTemp,jTemp,1,"fall");
+            if (canMove === 1){
+                freezeBomb();
+            }else{
+            
+            deleteLastBomb();
+            iNow =iNow+1;
+            drawBomb();
+            }
+                   }
+        }, 500);
+    }else{
+            clearInterval(mainInterval);
+            gamestarted =0;
+    }
+}
+
+function checkfreeze(iTemp,jTemp,tempMatrix,callFun){
+    
+    if(callFun=== "up"){
+        shadowMatrix=tempMatrix;
+    }else{
+        shadowMatrix=currentBombMatrix;
+    }
+  for( a=0; a<4; a++){//יצירת פצצת צל לבדיקת היתכנות התנועה
+        for( b=0; b<4; b++){
+            if (shadowMatrix[a][b]===1 ){
+            x=iTemp + a;
+            y=jTemp + b;
+
+        if(x >= iLength){
+            if (callFun=== "up"){
+              canMove= 2;//לא להתיחס ללחיצת סיבוב   
+            }else{
+                canMove= 1; //הקפא פצצה
+            }
+            shadowMatrix=[];
+            return;
+        }
+        if(  y>=jLength || y<0 || x<1){   
+            canMove= 2;//לא להתיחס ללחיצת ימינה שמאלה
+            shadowMatrix=[];
+            return;
+        }
+        if  ( table1.rows[x].cells[y].classList.contains('cellfreeze') || x>=iLength ){
+            if (callFun=== "up"){
+              canMove= 2;//לא להתיחס ללחיצת סיבוב   
+            }else{
+                canMove= 1; //הקפא פצצה
+            }
+            shadowMatrix=[];
+            return;
+        }
+            canMove= 0; //אפשר תנועה
+    }
+    
+    }
+  }
+  shadowMatrix=[];
+}
+
+
+function checkline(){
+    for( i=0; i<iLength; i++){
+        count=0;
+        for( j=0; j<=jLength; j++){
+            if (mainArr[i][j]===1){
+                count++;
+                if (count===jLength){//שורה מלאה, למחוק
+                    deleteLine(i);
+                    break ;
+                    }
+                }else{
+                    break ;
+                }
+            }
+        }
+    }
+function makeLine(){
+    
+    for( u=0; u<jLength-1; u++){
+        mainArr[iLength-1][u]=1;
+        table1.rows[iLength-1].cells[u].classList.add('cellfreeze');
+    }
+}
+
+function deleteLine(line){
+    gameP=0;
+    pauseGame();
+
+    var counter = 0;
+    var interval1 = setInterval(function(){
+    if(counter === 5) {
+        counter = 0;
+        gameP=0;
+        continuegame();
+        clearInterval(interval1);
+        }else{
+            for( k=0; k<jLength; k++){
+                table1.rows[line].cells[k].classList.add('cell5');
+            }
+            setTimeout(function(){
+                for( k=0; k<jLength; k++){
+                    table1.rows[line].cells[k].classList.remove('cell5'); 
+                }
+        },150);
+    counter++;
+        }
+    }, 300);
+ 
+    for( i=line; i>=1; i--){
+        for( j=0; j<jLength; j++){
+            mainArr[i][j]=mainArr[i-1][j];
+            table1.rows[i].cells[j].classList=table1.rows[i-1].cells[j].classList
+
+            table1.rows[i].cells[j].classList=table1.rows[i-1].cells[j].classList ;
+        }
+    }
+}  
+
+function freezeBomb(){
+    for( i=0; i<currentMatrix.length; i++){
+        x=currentMatrix[i][0];
+        y=currentMatrix[i][1];
+        if(x<=1){
+            endGame();
+            return;
+        }else{
+            table1.rows[x].cells[y].classList.add('cellfreeze');
+            mainArr[x][y]=1;
+        }
+    }
+        shadowMatrix=[];
+        checkline();
+        canMove= 0;
+        createBomb();
+}
+
+function endGame(){
+    gameP=0;
+    pauseGame();
+    alert("END GAME");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+body{
+    background-color: black;
+}
+
+/*===================================================*/
+
+
+.sidenav {
+    /*height: 50%;  100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 10%;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom:10px;
+    background-color:pink; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-radius: 15px;
+    
+    background: linear-gradient(135deg, pink 1%,#B00C9D 85%);    
+    box-shadow: 0px 0px 3px 2px #B00C9D;
+
+}
+
+/* The navigation menu links */
+/*.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}*/
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus, closeMe:hover{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn, closeMe{
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color:blue;
+}
+.sideBtn{
+    height : 40px;
+    border-radius: 10px;
+    min-width: 40px;
+    margin-bottom : 15px;
+    background-color: #FA6A02;
+}
+
+/*==========================================================================*/
+
+section{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70%;
+    width:705;
+    /*background-color: brown;*/
+    border-radius: 30px;
+    background: linear-gradient(135deg, #31edf7 1%,#207cca 50%,#21299C 100%);    
+    box-shadow: 0px 0px 3px 2px #05C1F5;
+}
+
+/*=====================================*/
+.piano {
+    text-align: center;
+}
+h1{
+    text-align: center;
+    color:white;
+    width:30%;
+
+}
+.piano button {
+    height :35vh;
+    width: 10vw;
+    margin: 5px;
+    padding: 2em;
+    cursor: pointer;
+    border-radius: 20%;
+    /*border-radius:28px;*/
+	display:inline-block;
+	cursor:pointer;
+}
+.piano{
+    margin:20px;
+}
+
+button {
+    outline: 0;
+}
+
+.green{
+	background-color:#08FC00;
+}
+.playing.green {
+    box-shadow: 0px 0px 21px 5px #08FC00 ;
+}
+
+.red{
+	background-color:#FC0303;
+}
+ .playing.red {
+	box-shadow: 0px 0px 21px 5px #FC0303 ;
+}
+
+.blue{
+	background-color:#0303FC;
+}
+.playing.blue {
+	box-shadow: 0px 0px 21px 5px #0303FC ;
+}
+
+.yellow{
+	background-color:#FAFA00;
+}
+.playing.yellow {
+	box-shadow: 0px 0px 21px 5px #FAFA00 ;
+}
+
+h1, .msg, .freeStyle{
+
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:1.2em;
+	text-decoration:none;
+    text-align: center;
+    margin: 20px;
+
+}
+.msg{
+    width : 35vw;
+	background-color:#7892c2;
+	text-shadow:0px 1px 0px #283966;
+	border:1px solid #4e6096;
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    box-shadow: 0px 0px 3px 2px #11edc8;
+	padding:3px 6px;
+	border-radius:10px;
+}
+
+h1{
+    width : 30vw;
+	background:linear-gradient(to bottom, #B700FA 5%, #47075E 100%);
+	text-shadow:0px 1px 0px #260333;
+    box-shadow: 0px 0px 3px 2px #F233CF;
+	padding:12px 37px;
+	border-radius:15px;
+}
+
+
+ .freeStyle{
+    font-size: 1em;
+	background:linear-gradient(to bottom, #11F505 5%, #189C11 100%);
+	text-shadow:0px 1px 0px #147A0F;
+    box-shadow: 0px 0px 3px 2px #11F505;
+    text-align : center;
+	border-radius:10px;
+    
+}
+/*=============================================*/
+@media screen and (max-width: 350px) {
+    .piano button {
+        width: 2vw;
+        height : 20vh;
+
+    }
+}

@@ -1,0 +1,255 @@
+
+
+
+<DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+<style>
+table {  margin: auto; margin-top: 100px; background-color: navajowhite ;width: 400px ; height: 400px; border-collapse: collapse}
+td{ background-color: yellow; width: 5% ; height: 5% ; font-size: 10px; }
+.cell1 { width: 5% ; height: 5% }
+.point {background-color: red }
+.snake {background-color: purple }
+.blink {background-color: orange }
+.buttons{margin: auto; width:400px; text-align:center;}
+#mainDiv {padding-top: 50px;}
+#score{font-size: 40px; color:blue}
+</style>
+</head>
+<body>
+    
+<script>
+//boars
+var mainArr= new Array(iLength);
+var gameMode =0; //האם המשחק כבר התחיל. למטרות אינטרוול בפעם הראשונה
+var tdId //td cell obj
+var iHead, jHead;  //the now row and cell position of tetris
+var iLength=20 , jLength= 20;
+//var snakeDirection=0; //37left 38up 39right 40down
+var mainInterval;
+var intervalT= 300;    
+//game
+var direction =[0,0];
+var snakeArr=[];
+snakeArr[0]= [8,8];
+var biteLocation= [4,4];
+var snakeArrLen= 3 , snakeArrJump= 6;
+var score=0;   
+var newPoint=[]; 
+var playGame=1 ;  //1 play game 0 stop game 
+//var currentMatrix = [];//אוסף הנקודות הנוכחיות של הפצצה
+//var shadowMatrix = [];//  לבדיקה אוסף הנקודות של הפצצה
+//var canMove= 0;
+//var gameP= 0; //האם מותר לעצור את המשחק
+    
+  
+    
+document.write("<div id= 'maimDiv'><table id = 'table1' border='1' width='400' height='400'>");
+
+    for( i=0; i<=iLength-1; i++)
+        {
+            mainArr[i] = new Array(jLength);
+            document.write("<tr id = tr" + i+1 + ">");
+            for( j=0; j<=jLength-1; j++)
+                {
+                        txt = "<td id = 'td" + i + j + "' class= 'cell1' > </td>"
+                        document.write(txt);
+                        mainArr[i][j]=0;
+                }
+                    document.write("</tr>");
+        }
+    document.write("</table><br><div>");
+buildboard();
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) { 
+        case 37://left
+            direction =[0,-1];    
+            break;
+        case 38://up
+            direction =[-1,0];    
+            break;
+        case 39://right
+            direction =[0,1];    
+            break;
+        case 40: //down
+            direction =[1,0];    
+            break;
+    }
+}
+//function al(){    alert(biteLocation+"/"+iHead+","+jHead);}
+function buildboard(){
+    iHead= snakeArr[0][0];
+    jHead= snakeArr[0][1];
+    iBite= biteLocation[0];
+    jBite= biteLocation[1];
+
+    table1.rows[iHead].cells[jHead].classList.add('snake');
+    table1.rows[iBite].cells[jBite].classList.add('point');
+    gameMode=1;
+
+}
+
+function startGame(){
+   $("td").removeClass('blink');
+   $("td").removeClass('point');
+    direction =[0,0];
+    snakeArr=[];
+    snakeArr[0]= [8,8];
+    biteLocation= [4,4];
+    snakeArrLen= 3 //, snakeArrJump= 8;
+    score=0;   
+    newPoint=[];
+    buildboard();
+    //startOver(); 
+    snakeInterval();
+}
+function startOver(){
+    //clearInterval(mainInterval);
+    //direction =[0,0];
+    snakeArr= [];
+    snakeArrLen= 3
+   $("td").removeClass('snake');
+   $("td").removeClass('blink');
+    iBite= biteLocation[0];
+    jBite= biteLocation[1];
+    table1.rows[iBite].cells[jBite].classList.remove('point'); 
+    snakeArr[0]= [8,8];
+    biteLocation= [4,4];
+    buildboard();
+    startGame();
+}
+function pauseGame(){
+    if (playGame===1){
+        playGame=0;
+        $("#pause").text("משחק המשך");
+    }else{
+        playGame=1;
+        snakeInterval();
+        $("#pause").text("הספק משחק");
+    }
+}
+function snakeInterval(){
+    
+    mainInterval = setInterval(function(){ 
+    if (playGame===0){//pause Game
+        clearInterval(mainInterval);
+    }else{
+        iTemp= iHead+direction[0];
+        jTemp= jHead+direction[1];
+    if(direction[0]===direction[1]){
+        return;
+    }
+    if (iTemp<0){
+        iTemp=iLength-1}
+    if (iTemp>iLength-1){
+        iTemp=0}
+    
+    if (jTemp<0){
+        jTemp=jLength-1}
+    if (jTemp>jLength-1){
+        jTemp=0}
+    newPoint=[iTemp,jTemp];
+
+     
+     if (snakeArr.length>1){
+        snakeArrTemp=snakeArr.slice(1);;
+        r=snakeArrTemp.some(pointCheck);
+        if(r===true){
+            stopGame();
+            return;
+        }
+    }
+        
+        snakeArr.unshift(newPoint);
+        len=snakeArr.length;
+        if (len>snakeArrLen){
+            table1.rows[snakeArr[len-1][0]].cells[snakeArr[len-1][1]].classList.remove('snake');
+            snakeArr.pop();
+        }
+        table1.rows[iTemp].cells[jTemp].classList.add('snake');
+        if (newPoint[0]===biteLocation[0]&&
+            newPoint[1]===biteLocation[1]){
+            byte();
+        }else{
+        }
+        jHead=jTemp;
+        iHead=iTemp;
+
+        }
+        }, intervalT);
+    
+}
+function stopGame(){
+    clearInterval(mainInterval);
+    var els = document.getElementsByClassName('snake');
+    while (els.length) {//change class from snake to blink
+        els[0].classlist='cell1 blink';
+        document.getElementsByClassName("snake")[0].classList.add("blink");
+        document.getElementsByClassName("snake")[0].classList.remove("snake");}
+        
+        //document.getElementById("myDIV").classList="anotherClass ";
+        //els[0].className -= ' snake';
+        //els[0].className += ' .blink';}
+   $("td").removeClass('snake');
+   //$('.blink').blink();
+       for(x=1;x<5;x++){
+            $('.blink').fadeOut(300);
+            $('.blink').fadeIn(300);
+        }
+    setTimeout(function(){ startOver(); }, 300*2*4); 
+}
+function pulse() {
+    for(x=1;x<3;x++){
+        $('.blink').fadeOut(500);
+        $('.blink').fadeIn(500);
+    }
+    clearInterval(pulse);
+
+}
+  
+
+/////////////////////////////////
+function byte(){
+    //delete last byte
+    snakeArrLen=snakeArrLen+snakeArrJump;
+    score=score+3;
+    document.getElementById("score").innerHTML ="score:"+score;
+    table1.rows[biteLocation[0]].cells[biteLocation[1]].classList.remove('point');
+    //create new byte
+    randByte();
+    createByte();
+}
+function randByte(){
+    i1= Math.floor((Math.random() * iLength) ); 
+    j1= Math.floor((Math.random() * jLength) );
+    newPoint=[i1,j1];
+    //return newPoint;
+}
+function createByte(){
+   r=true; 
+    do{
+    r=snakeArr.some(pointCheck);
+        if(r===false){
+            biteLocation=newPoint.slice(0);
+            table1.rows[biteLocation[0]].cells[biteLocation[1]].classList.add('point');
+        }else{
+            randByte();
+        }
+    }while(r===true);
+}
+
+function pointCheck(pCheck){
+    return newPoint[0]===pCheck[0]&&newPoint[1]===pCheck[1];
+}
+///////////////////////////////////////////////
+
+</script>
+<div id="buttons" class='buttons'>
+<button onclick="startGame()">התחל משחק</button>
+    <button id="pause" onclick="pauseGame()">הפסק משחק</button><br>
+    <span id="score"  >score:0</span>
+</div>
+</body>
+</html>

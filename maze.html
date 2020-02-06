@@ -1,0 +1,354 @@
+
+
+
+<DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+<style>
+table {  margin: auto; margin-top: 30px; background-color: navajowhite ;table-layout: fixed;; border-collapse: collapse}
+table11111111111 {  margin: auto; margin-top: 100px; background-color: navajowhite ;width: 600px ; height: 600px; border-collapse: collapse}
+table.table1 {    table-layout: fixed;}
+
+
+
+table.classname td {    font-size: 90%;}
+.cell { width: 40px ; height: 40px;  }
+.cellChecked { background-color: blue }
+.cell1 { background-color: red }
+.arm1 { background-color: yellow }
+.arm2 { background-color: blue }
+.arm3 { background-color: white }
+.arm4 { background-color: hotpink }
+.arm5 { background-color: green }
+.arm6 { background-color: red }
+.arm7 { background-color: gray }
+.arm8 { background-color: lawngreen }
+.arm9 { background-color: mediumseagreen }
+.arm0 { background-color: limegreen }
+
+.wallVer { max-width: 5px ; min-width: 5px;  background-color: black }
+.wallVerOpen { width:10px ; min-width: 5px;  background-color: white }
+
+.wallHor {  max-height: 5px; height: 10px; background-color: black }
+.wallHorOpen { background-color: white }
+.wallOpen { background-color: white }
+
+
+.buttons{margin: auto; width:400px; text-align:center;}
+#mainDiv {padding-top: 20px;}
+#score{font-size: 40px; color:blue}
+</style>
+</head>
+<body>
+    
+<script>
+var tableWidth= 200;
+var tablehight= 200;
+var iLength=40;
+var jLength=40;
+var mainArr= new Array(iLength);
+var currentPoint,newPoint, neighboursArr=[];
+var armArr=[]
+var freeArr=[];
+var chooseArr=[];
+var armNum=0;
+var neighboursArr=[], neighboursCoughtArr=[], armsArr=[];
+var count=0;
+var startCell, endCell, currPlayerCell =(null,null);
+
+//var sides=[[-2,0],[0,2],[2,0],[0.-2]];
+var sides=[[]];
+sides[0]=[-1,0];
+sides[1]=[0,1];
+sides[2]=[1,0];
+sides[3]=[0,-1];
+//================================================================
+
+var table1 = document.createElement('table');
+table1.classList +="table1";
+for (var i = 0; i < iLength*2+1; i++){
+    var tr = document.createElement('tr');   
+    for (var j = 0; j < jLength*2+1; j++){
+        var td1 = document.createElement('td');
+        //var text1 = document.createTextNode('T');
+        //td1.appendChild(text1);
+        tr.appendChild(td1);
+        td1.id= i.toString()+j.toString();
+            classTxt="";
+        if(i%2===1 && j%2===1){
+          classTxt='cell'  ;
+            //var text1 = document.createTextNode(i.toString()+"/"+j.toString());
+            i1=(i-1)/2;
+            j1=(j-1)/2;
+            //var text1 = document.createTextNode(i1.toString()+"/"+j1.toString());
+            //td1.appendChild(text1);
+            //i1=(i-1)/2;
+            //sj1=(j-1)/2;            
+            //mainArr[i][j]=0;
+        }else{
+            if(j%2===0){
+                classTxt=classTxt+' wallVer'  ;
+            }
+            if(i%2===0){
+                classTxt=classTxt+ ' wallHor'  ;
+            }
+            
+        }
+        td1.classList +=classTxt;
+    }
+
+    table1.appendChild(tr);
+}
+document.body.appendChild(table1);
+    //build mainArr
+    for (var i1 = 0; i1 < iLength; i1++){
+        mainArr[i1] = new Array(jLength);
+        for (var j1 = 0; j1 < jLength; j1++){
+            mainArr[i1][j1]=0;//4 walls stands and cell was not visited
+        }
+    }
+//===========================================================
+function parameters(){
+var mainArr= new Array(iLength);
+var currentPoint,newPoint, neighboursArr=[];
+var armArr=[]
+var freeArr=[];
+var chooseArr=[];
+var armNum=0;
+var neighboursArr=[], neighboursCoughtArr=[], armsArr=[];
+var count=0;
+}
+
+function chooseNewCell(){
+    buildFreeArr();
+    if(freeArr.length>0){
+        //freeArr.slice(0);
+        rand = Math.floor((Math.random()*freeArr.length) );
+        currentPoint= [freeArr[rand][0],freeArr[rand][1]];
+        if (freeArr[rand]>0){
+            alert ("coosen cought cell-chooseNewCell()" );
+        }
+        delete freeArr[rand];
+        //markVisited(newPoint);    
+    }else{alert("rand choose from 0 options ")}   
+}
+
+
+function startBuild(){
+    //parameters();
+    //armNum+=1;
+    do{     //markVisited(currentPoint);
+        if (count===0){
+            chooseNewCell();
+            armNum+=1;
+         }
+        count+=1;
+        buildFreeArr();
+        i2=currentPoint[0];
+        j2=currentPoint[1];
+        table1.rows[i2*2+1].cells[j2*2+1].classList.add('arm3');
+        //table1.rows[i2*2+1].cells[j2*2+1].innerHTML= armNum;
+        
+        armArr.push(currentPoint);
+        mainArr[i2][j2]=armNum;
+        neighboursArr=[];
+        neighboursCoughtArr=[];
+        
+        buildNeighboursArr(i2,j2);
+        if (neighboursArr.length>0){//there is where to go.
+                rand = Math.floor((Math.random()*neighboursArr.length) );
+                newPoint=neighboursArr[rand];
+                i4 =(i2+newPoint[0])/2;
+                j4 =(j2+newPoint[1])/2;
+                table1.rows[i4*2+1].cells[j4*2+1].classList.add('wallOpen');
+                currentPoint=[newPoint[0],newPoint[1]];
+                delete freeArr[rand];
+        }else{//no where to go- check if can connect old arm.
+            if (neighboursCoughtArr.length>0){//can connect old arm
+                breakWall(i2,j2);
+                armArr=[];//close arm arr.
+                count=0;
+                armNum-=1;
+
+            }else{//dead end- arm is closed in itself.
+                count=0;
+                armArr=[];//close arm arr.
+            }
+
+        }
+    }
+    //maze build, now break dead arms
+ 
+ while (freeArr.length>1);
+ //shrink all trees to one
+    for ( i=0; i<iLength; i++){//build armsArr
+        for ( j=0; j<jLength; j++){
+            point= [i,j];
+            armNum=mainArr[i][j];
+            if (!armsArr[armNum]){
+              armsArr[armNum]=[point] ; 
+            }else{
+              armsArr[armNum].push(point) ; 
+            }
+        }
+    }
+    //shrink arrs
+    for (arm=armsArr.length-1; arm>1;arm--){
+        armArrTemp= armsArr[arm].slice(0);
+        do{
+        makeRand(i2,j2,armArrTemp,arm);
+        i2=currentPoint[0];
+        j2=currentPoint[1];
+         buildNeighboursArr(i2,j2,2);
+         
+            if (neighboursCoughtArr.length>0){
+            //table1.rows[i2*2+1].cells[j2*2+1].classList.add('arm4');//open wall
+             breakWall(i2,j2,2);
+
+             arm1= mainArr[i2][j2];
+             armsArr[arm1]=armsArr[arm1].concat(armsArr[arm2]);
+
+            }else{
+                armArrTemp.splice(rand);
+                makeRand(i2,j2,armArrTemp,arm);
+                i2=currentPoint[0];
+                j2=currentPoint[1];
+
+            }
+         }while
+            (neighboursCoughtArr.length<1);
+    }
+    breakDoors();
+}
+//===================================================================
+function breakDoors(){
+    var rand1 =  1+2* Math.floor(Math.random() *jLength );
+    var rand2 =  1+2* Math.floor(Math.random() *jLength );
+    startCell = (0,rand1);
+    endCell = (2 * jLength,rand2);
+    var obj = document.getElementById('0'+''+rand1);
+    obj.classList.add('wallOpen');
+    var obj = document.getElementById(''+ 2 * jLength+''+rand2 );
+    obj.classList.add('wallOpen');
+
+}
+//===================================================================
+function  makeRand(i2,j2,armArrTemp,arm){
+        rand= Math.floor((Math.random()*armsArr[arm].length) );
+         currentPoint= armsArr[arm][rand];
+}
+
+function breakWall(i2,j2,fun){
+             rand= Math.floor((Math.random()*neighboursCoughtArr.length) );
+             newPoint=neighboursCoughtArr[rand];
+            //i4 =Math.abs(i2-newPoint[0]);
+            //j4 =Math.abs(j2-newPoint[1]);
+            i4 =(i2+newPoint[0])/2;
+            j4 =(j2+newPoint[1])/2;
+            arm1= mainArr[i2][j2];
+            arm2= mainArr[newPoint[0]][newPoint[1]];
+            if (fun===2){
+            //table1.rows[newPoint[0]*2+1].cells[newPoint[1]*2+1].classList.add('arm4');//open wall
+            for (x1=0; x1<iLength; x1++){//build arnArr
+                for (y1=0; y1<jLength; y1++){
+                    if(mainArr[x1][y1]===arm1){
+                       armArr.push([x1,y1]) ;
+                    }
+                }
+            }
+
+                
+            }
+            table1.rows[i4*2+1].cells[j4*2+1].classList.add('wallOpen');//open wall
+            //check for arms connections
+            //make every arm2 cell=>arm1 
+                for (t=armArr.length-1; t>=0; t--){
+                    i9=armArr[t][0];
+                    j9=armArr[t][1];
+                    mainArr[i9][j9]=arm2;
+                    //table1.rows[i9*2+1].cells[j9*2+1].innerHTML= arm2;
+                //table1.rows[i9*2+1].cells[j9*2+1].classList.add('arm0');//open wall
+                }
+            /*
+            armArr=[];//close arm arr.
+            count=0;
+            armNum-=1;
+            */
+            return arm2;
+}
+
+
+function buildNeighboursArr(i2,j2,fun){
+    neighboursCoughtArr.length=0;
+    for (var s=0; s<sides.length; s++){//check neighbor in every side
+            a=sides[s][0];
+            b=sides[s][1];
+            i3=i2+a ;
+            j3=j2+b ;
+            arrPoint=[i3,j3];
+            if(i3>=0 && i3<iLength && j3>=0 && j3<jLength){//check if point is valid- not out of grid
+                armTemp=mainArr[i3][j3]
+                 if (fun===2){ //if we are in shrinking arms mode
+                     armNum=mainArr[i2][j2];
+                    //table1.rows[i2*2+1].cells[j2*2+1].classList.add('arm5');//open wall
+                    //table1.rows[i3*2+1].cells[j3*2+1].classList.add('arm5');//open wall
+                 }
+                 if (armTemp>0 && armTemp !=armNum){//cell is cought
+                    neighboursCoughtArr.push(arrPoint);
+                    //table1.rows[i3*2+1].cells[j3*2+1].classList.add('arm2');
+                 }else{
+                    if (mainArr[i3][j3]===0){//cell is free
+                        neighboursArr.push(arrPoint);//insert into neighbours arr to rand from
+                        //table1.rows[i3*2+1].cells[j3*2+1].classList.add('arm2');
+                    }
+                 }
+            }
+}}
+
+function buildFreeArr(){
+    freeArr=[];
+    for (var i5 = 0; i5 < iLength; i5++){
+        for (var j5 = 0; j5 < jLength; j5++){
+           if( mainArr[i5][j5]===0){
+                freeArr.push([i5,j5])
+           }
+        }
+    }
+    //return freeArr;
+}
+function startGame(){
+    currPlayerCell = startCell;
+
+
+}
+function markVisited(currentPoint){
+        i2=currentPoint[0];
+        j2=currentPoint[1];
+        table1.rows[i2*2+1].cells[j2*2+1].classList.add('cell1');
+        mainArr[i2][j2]=1;
+        armArr.push(currentPoint);
+        
+}
+
+
+
+//===============================================
+
+
+function CheckPointVal(iCheck,jCheck){
+    //if(iCheck>0 && iCheck<iLength*2+1 && jCheck>0 && jCheck<jLength*2+1){
+    if(iCheck>0 && iCheck<iLength && jCheck>0 && jCheck<jLength){
+        return true;
+    }
+}
+
+
+</script>
+<div id="buttons" class='buttons'>
+<button onclick="startBuild()">make me a maze!</button><br>
+<button onclick="startGame()">התחל משחק!</button><br>
+<a class="active" href="index.html">Home page</a><br>
+</div>
+</body>
+</html>

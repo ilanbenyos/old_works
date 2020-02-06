@@ -1,0 +1,70 @@
+
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+header {
+    font-size: 50px;
+    text-align: center;
+}
+hr{
+    border: 2px solid black;
+}
+table {
+    border: 2px solid black;
+    text-align: center;
+    margin: auto;
+    border-collapse: collapse;
+}
+.panel{
+    margin: auto;
+    width: 170px;
+    padding: 10px;
+}
+.watch{
+    border: 2px solid black;
+    width: 50px;
+    text-align: center;
+    display: inline-block;
+
+}
+.cell-F{
+
+}
+.cell-T {
+    background-image: url("../img/target.png");
+}
+.cell-WA {
+    background-image: url("../img/water.png");
+}
+.cell{
+    border: 1px solid black;
+    width: 40px;
+    height:40px;
+    background-size: 100%;
+}
+.cell-W {
+    background-color: brown;
+    background-image: url("../img/wall.png");
+}
+.cell-B {
+    background-image: url("../img/box.png");
+}
+.cell-M {
+    background-image: url("../img/man.png");
+}
+.botton{
+    visibility: inherit;
+}
+.popUp{
+    background-color: lightcyan;
+    padding: 10px;
+    text-align:center;
+    font-size: 40;
+    visibility: hidden;
+    position:absolute;
+    top:100px;
+    left: 40%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
